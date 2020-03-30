@@ -1,29 +1,18 @@
 <template>
   <div class="home-page">
-    <mt-tabbar v-model="selected">
-      <mt-tab-item id="订单">
-        <i slot="icon" class="iconfont icon-order"></i>
-        我要接单
-      </mt-tab-item>
-      <mt-tab-item id="发现">
-        <i slot="icon" class="iconfont icon-editor"></i>
-        发布订单
-      </mt-tab-item>
-      <mt-tab-item id="我的">
-        <i slot="icon" class="iconfont icon-people"></i>
-        个人中心
-      </mt-tab-item>
-    </mt-tabbar>
+    <div class="container">
+      <router-view/>
+    </div>
+    <TabBar/>
   </div>
 </template>
 
 <script>
+import TabBar from "@/components/TabBar";
 export default {
   name: 'Home',
-  computed: {
-    selected(){
-      return '我的'
-    }
+  components: {
+    TabBar
   }
 };
 </script>
@@ -31,8 +20,18 @@ export default {
 <style lang="scss" scoped>
   .home-page {
     @include coverScreen;
-    .iconfont {
-      font-size: 24px;
+    @include flex(flex-start);
+    flex-direction: column;
+
+    .container {
+      flex: 1 1 auto;
+      width: 100%;
+    }
+
+    .tab-bar {
+      flex: 0 0 auto;
+      position: relative;
+      width: 100%;
     }
   }
 </style>
