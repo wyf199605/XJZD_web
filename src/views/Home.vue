@@ -1,18 +1,38 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="home-page">
+    <mt-tabbar v-model="selected">
+      <mt-tab-item id="订单">
+        <i slot="icon" class="iconfont icon-order"></i>
+        我要接单
+      </mt-tab-item>
+      <mt-tab-item id="发现">
+        <i slot="icon" class="iconfont icon-editor"></i>
+        发布订单
+      </mt-tab-item>
+      <mt-tab-item id="我的">
+        <i slot="icon" class="iconfont icon-people"></i>
+        个人中心
+      </mt-tab-item>
+    </mt-tabbar>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
-
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+  computed: {
+    selected(){
+      return '我的'
+    }
   }
 };
 </script>
+
+<style lang="scss" scoped>
+  .home-page {
+    @include coverScreen;
+    .iconfont {
+      font-size: 24px;
+    }
+  }
+</style>

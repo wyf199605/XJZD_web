@@ -1,0 +1,95 @@
+@mixin wh($w, $h: $w) {
+  width: $w;
+  height: $h;
+}
+
+@mixin flex($justify-content: center, $align-items: center) {
+  display: flex;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+@mixin coverScreen($position: absolute, $backColor: #fff) {
+  position: $position;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  @include wh(100%);
+  background-color: $backColor;
+}
+
+@mixin positionCenter($position: absolute) {
+  position: $position;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+@mixin positionLeft($position: absolute, $left: $common-wd) {
+  position: $position;
+  top: 50%;
+  left: $left;
+  transform: translate3d(0, -50%, 0);
+}
+
+@mixin positionRight($position: absolute, $right: $common-wd) {
+  position: $position;
+  top: 50%;
+  right: $right;
+  transform: translate3d(0, -50%, 0);
+}
+
+@mixin font($font-size, $color: #333, $text-align: left) {
+  font-size: $font-size;
+  color: $color;
+  text-align: $text-align;
+}
+
+@mixin clearFloat(){
+  &:after{
+    clear: both;
+    content: "";
+    display: block;
+  }
+}
+
+@mixin animate($animateName:slideInUp,$time:0.4s) {
+  animation-name: $animateName;
+  animation-duration: $time;
+  animation-fill-mode: both;
+}
+
+@keyframes slideInUp {
+  from {
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
