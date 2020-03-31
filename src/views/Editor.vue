@@ -1,6 +1,6 @@
 <template>
     <!-- 添加订单 -->
-    <div>Editor</div>
+    <div class="editor-page">Editor</div>
 </template>
 
 <script>

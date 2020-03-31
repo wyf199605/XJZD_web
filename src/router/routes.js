@@ -1,8 +1,8 @@
 import Home from '../views/Home.vue';
-import OrderForm from '../views/OrderForm.vue';
-import Editor from '../views/Editor.vue';
-import Myself from '../views/Myself.vue';
-import Detail from '../views/Detail.vue';
+import OrderForm from '../views/OrderForm.vue'; // 订单列表
+import Editor from '../views/Editor.vue'; // 发布新订单
+import Myself from '../views/Myself.vue'; // 个人中心
+import Detail from '../views/Detail.vue'; // 订单详情
 
 export default [
     {

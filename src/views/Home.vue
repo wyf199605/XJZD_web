@@ -26,6 +26,7 @@ export default {
     .container {
       flex: 1 1 auto;
       width: 100%;
+      position: relative;
     }
 
     .tab-bar {
