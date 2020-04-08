@@ -49,36 +49,39 @@ export default function fetch ({url, method = 'get', data, loading = true, silen
         });
     }
 
-    let promise = instance.request({
-        method,
-        url,
-        params,
-        data,
-        timeout,
-        withCredentials: true,
-        responseType: "json",
-        cancelToken: new CancelToken(function (c) {
-            cancel = c;
-        })
-    }).then(({data}) => {
-        if (data.code !== 200) {
+    let promise = new Promise((resolve, reject) => {
+        instance.request({
+            method,
+            url,
+            params,
+            data,
+            timeout,
+            withCredentials: true,
+            responseType: "json",
+            cancelToken: new CancelToken(function (c) {
+                cancel = c;
+            })
+        }).then((res) => {
+            if (res.data.code !== 200) {
+                !silent && Toast.fail({
+                    message: res.data.msg,
+                });
+                reject(res);
+                return;
+            }
+            resolve(res);
+        }).catch((e) => {
+            console.error(new Error(e));
+            let response = e.response;
             !silent && Toast.fail({
-                message: data.msg,
-                position: 'bottom',
+                message: '请求失败，请检查您的网络！',
             });
-        }
-        return data;
-    }).catch((e) => {
-        console.error(new Error(e));
-        !silent && Toast.fail({
-            message: '请求失败，请检查您的网络！',
-            position: 'bottom',
+            reject(response ? response.data : null);
+        }).finally(() => {
+            if (loading && toastLoading) {
+                toastLoading.clear();
+            }
         });
-        return e.response ? e.response.data : null;
-    }).finally(() => {
-        if (loading && toastLoading) {
-            toastLoading.clear();
-        }
     });
 
     promise.cancel = function () {

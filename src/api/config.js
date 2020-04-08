@@ -1,4 +1,4 @@
-// const serverURL = 'http://129.204.246.38';
+// const serverURL = 'http://129.204.246.38:7001';
 const serverURL = 'http://localhost:7001';
 
 const baseURL = process.env.NODE_ENV === 'development' ? serverURL : "";
