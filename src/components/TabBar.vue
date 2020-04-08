@@ -1,20 +1,22 @@
 <template>
-    <mt-tabbar class="tab-bar" v-show="visible" v-model="activePath">
-        <mt-tab-item v-for="route of routes" :key="route.path" :id="route.path">
-            <i slot="icon" class="iconfont" :class="route.icon"/>
+    <Tabbar class="tab-bar" v-show="visible" :value="activePath">
+        <TabbarItem v-for="route of routes" :key="route.path" :name="route.path" :to="route.path">
+            <template #icon>
+                <i slot="icon" class="iconfont" :class="route.icon"/>
+            </template>
             {{route.title}}
-        </mt-tab-item>
-    </mt-tabbar>
+        </TabbarItem>
+    </Tabbar>
 </template>
 
 <script>
-    import {Tabbar, TabItem} from "mint-ui";
+    import { Tabbar, TabbarItem } from 'vant';
 
     export default {
         name: "TabBar",
         components: {
-            "mt-tabbar": Tabbar,
-            "mt-tab-item": TabItem
+            Tabbar,
+            TabbarItem
         },
         data() {
             return {
@@ -26,13 +28,8 @@
             }
         },
         computed: {
-            activePath: {
-                get() {
-                    return this.$route.path;
-                },
-                set(path) {
-                    this.$router.push(path);
-                }
+            activePath() {
+                return this.$route.path;
             },
             visible() {
                 return this.routes.some(({path}) => this.activePath === path);
