@@ -8,6 +8,16 @@ const CancelToken = axios.CancelToken;
 
 let instance = axios.create({timeout: 10000, baseURL: config.baseURL});
 
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i].trim();
+        if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+    }
+    return "";
+}
+
 /**
  * 请求方法封装
  * @param {string} url 请求地址
@@ -56,6 +66,9 @@ export default function fetch ({url, method = 'get', data, loading = true, silen
             params,
             data,
             timeout,
+            headers: {
+                openid: getCookie('openid')
+            },
             withCredentials: true,
             responseType: "json",
             cancelToken: new CancelToken(function (c) {

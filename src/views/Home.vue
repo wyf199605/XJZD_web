@@ -17,8 +17,8 @@
             TabBar
         },
         mounted() {
-            Ajax.getOrderList(0, 10).then((res) => {
-                console.log(res.data);
+            Ajax.getOrderList(0, 10).then(() => {
+                // console.log(res.data);
             });
         }
     };

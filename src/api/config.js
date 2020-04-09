@@ -1,5 +1,6 @@
-// const serverURL = 'http://129.204.246.38:7001';
-const serverURL = 'http://localhost:7001';
+// const serverURL = 'http://129.204.246.38'; // 生产地址
+const serverURL = 'http://129.204.246.38:7001'; // 测试地址
+// const serverURL = 'http://localhost:7001'; // 本地地址
 
 const baseURL = process.env.NODE_ENV === 'development' ? serverURL : "";
 
