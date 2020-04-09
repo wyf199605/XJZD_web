@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="editor-form-wrapper">
         <van-form @submit="submitHandler">
             <van-field
                     name="title"
@@ -137,6 +137,6 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss">
 
 </style>

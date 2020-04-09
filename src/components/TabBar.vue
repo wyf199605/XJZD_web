@@ -1,5 +1,5 @@
 <template>
-    <Tabbar class="tab-bar" v-show="visible" :value="activePath">
+    <Tabbar class="tab-bar-wrapper" v-show="visible" :value="activePath">
         <TabbarItem v-for="route of routes" :key="route.path" :name="route.path" :to="route.path">
             <template #icon>
                 <i slot="icon" class="iconfont" :class="route.icon"/>
@@ -38,9 +38,11 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss">
+    .tab-bar-wrapper {
 
-    .iconfont {
-        font-size: 24px;
+        .iconfont {
+            font-size: 24px;
+        }
     }
 </style>
