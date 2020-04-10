@@ -42,14 +42,24 @@
                     @click="codeTypePopupVisible = true"
             />
             <van-field
-                    name="deadline"
+                    name="date"
                     label="截止日期"
                     :value="formatDate"
                     placeholder="点击选择日期"
                     required
                     readonly
                     clickable
-                    @click="deadlinePopupVisible = true"
+                    @click="calendarVisible = true"
+            />
+            <van-field
+                    name="time"
+                    label="截止时间"
+                    :value="time"
+                    placeholder="点击选择时间"
+                    required
+                    readonly
+                    clickable
+                    @click="timePopupVisible = true"
             />
             <van-field name="picture" label="附件图片">
                 <template #input>
@@ -73,22 +83,22 @@
             />
         </van-popup>
         <!-- 时间下拉框 -->
-        <van-popup v-model="deadlinePopupVisible" position="bottom">
+        <van-popup v-model="timePopupVisible" position="bottom">
             <van-datetime-picker
-                    type="datetime"
-                    :value="deadline"
-                    :min-date="minDate"
-                    @confirm="deadlineConfirmHandler"
-                    @cancel="deadlinePopupVisible = false"
+                    type="time"
+                    :value="time"
+                    @confirm="timeConfirmHandler"
+                    @cancel="timePopupVisible = false"
             />
         </van-popup>
+        <van-calendar v-model="calendarVisible" :default-date="date" @confirm="dateConfirmHandler" :min-date="minDate" title="截止日期选择"/>
     </div>
 </template>
 
 <script>
     import Vue from 'vue';
     import moment from 'moment';
-    import { Field, Form, Button, Picker, Popup, DatetimePicker, Uploader } from 'vant';
+    import { Field, Form, Button, Picker, Popup, DatetimePicker, Uploader, Calendar } from 'vant';
 
     Vue.use(Form);
 
@@ -101,6 +111,7 @@
             [Popup.name]: Popup,
             [DatetimePicker.name]: DatetimePicker,
             [Uploader.name]: Uploader,
+            [Calendar.name]: Calendar,
         },
         data(){
             return {
@@ -110,15 +121,17 @@
                 codeType: 'Java',
                 codeTypePopupVisible: false,
                 codeTypeOptions: ["Java", "JavaScript", "C", "C++", "C#", "Python", "Go", "PHP"],
-                deadline: moment().add(7, 'days').toDate(),
-                deadlinePopupVisible: false,
+                date: moment().add(7, 'days').toDate(),
+                time: '23:59',
+                timePopupVisible: false,
+                calendarVisible: false,
                 minDate: moment().toDate(),
                 pictures: []
             }
         },
         computed: {
             formatDate() {
-                return this.deadline ? moment(this.deadline).format("YYYY-MM-DD HH:mm") : '';
+                return this.date ? moment(this.date).format("YYYY-MM-DD") : '';
             }
         },
         methods: {
@@ -126,9 +139,13 @@
                 this.codeType = value;
                 this.codeTypePopupVisible = false;
             },
-            deadlineConfirmHandler(time) {
-                this.deadline = time;
-                this.deadlinePopupVisible = false
+            timeConfirmHandler(time) {
+                this.time = time;
+                this.timePopupVisible = false;
+            },
+            dateConfirmHandler(date) {
+                this.date = date;
+                this.calendarVisible = false;
             },
             submitHandler(e) {
                 this.$emit('submit', e);
