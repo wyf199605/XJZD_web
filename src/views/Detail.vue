@@ -1,6 +1,6 @@
 <template>
     <!-- 订单详细页面 -->
-    <div></div>
+    <div class="detail-page"></div>
 </template>
 
 <script>

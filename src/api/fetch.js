@@ -82,6 +82,7 @@ export default function fetch ({url, method = 'get', data, loading = true, silen
                 reject(res);
                 return;
             }
+            console.log(res);
             resolve(res);
         }).catch((e) => {
             console.error(new Error(e));

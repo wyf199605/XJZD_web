@@ -5,6 +5,7 @@
                     name="title"
                     v-model="title"
                     label="订单标题"
+                    placeholder="请填写订单标题"
                     required
                     :rules="[{required: true, message: '请填写订单标题'}]"
             />
@@ -12,9 +13,8 @@
                     name="budget"
                     label="预算金额"
                     v-model.number="budget"
-                    required
+                    placeholder="请填写预算金额（选填）"
                     type="number"
-                    :rules="[{required: true, message: '请填写预算金额'}]"
             />
             <van-field
                     name="details"
@@ -23,12 +23,13 @@
                     type="textarea"
                     rows="3"
                     maxlength="200"
+                    placeholder="请填写内容（不少于5字，不多于200字）"
                     required
                     autosize
                     show-word-limit
                     :rules="[
                         {required: true, message: '请填写内容'},
-                        {validator: value => value.length >= 10 && value.length <= 200, message: '至少10个，至多200个'}
+                        {validator: value => value.length >= 5 && value.length <= 200, message: '至少5字，至多200字'}
                     ]"
             />
             <van-field
@@ -109,7 +110,7 @@
                 budget: null,
                 codeType: 'Java',
                 codeTypePopupVisible: false,
-                codeTypeOptions: ["Java", "JavaScript", "C", "C++", "C#", "Python", "Go", "PHP"],
+                codeTypeOptions: ["Java", "JavaScript", "C", "C++", "C#", "Python", "Go", "PHP", "Node", '其他'],
                 deadline: moment().add(7, 'days').toDate(),
                 deadlinePopupVisible: false,
                 minDate: moment().toDate(),

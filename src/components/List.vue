@@ -76,8 +76,11 @@
                 });
             },
             loadHandler() {
-                this.onload().then(() => {
-
+                this.onLoad().then((finish) => {
+                    this.loading = false;
+                    this.finished = finish;
+                }).catch(() => {
+                    this.error = true;
                 });
             },
         }

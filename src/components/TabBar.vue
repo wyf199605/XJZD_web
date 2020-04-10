@@ -1,9 +1,6 @@
 <template>
     <Tabbar class="tab-bar-wrapper" v-show="visible" :value="activePath">
-        <TabbarItem v-for="route of routes" :key="route.path" :name="route.path" :to="route.path">
-            <template #icon>
-                <i slot="icon" class="iconfont" :class="route.icon"/>
-            </template>
+        <TabbarItem v-for="route of routes" :key="route.path" :icon="route.icon" :name="route.path" :to="route.path">
             {{route.title}}
         </TabbarItem>
     </Tabbar>
@@ -21,9 +18,9 @@
         data() {
             return {
                 routes: [
-                    {path: '/', title: '我要接单', icon: 'icon-order'},
-                    {path: '/editor', title: '发布订单', icon: 'icon-editor'},
-                    {path: '/myself', title: '个人中心', icon: 'icon-people'},
+                    {path: '/', title: '我要接单', icon: 'orders-o'},
+                    {path: '/editor', title: '发布订单', icon: 'records'},
+                    {path: '/myself', title: '个人中心', icon: 'user-o'},
                 ]
             }
         },

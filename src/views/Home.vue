@@ -1,7 +1,9 @@
 <template>
     <div class="home-page">
         <div class="container">
-            <router-view/>
+            <keep-alive>
+                <router-view/>
+            </keep-alive>
         </div>
         <TabBar/>
     </div>
@@ -9,7 +11,6 @@
 
 <script>
     import TabBar from "@/components/TabBar";
-    import Ajax from "../api";
 
     export default {
         name: 'Home',
@@ -17,9 +18,9 @@
             TabBar
         },
         mounted() {
-            Ajax.getOrderList(0, 10).then(() => {
-                // console.log(res.data);
-            });
+            // Ajax.getOrderList(0, 10).then(() => {
+            //     // console.log(res.data);
+            // });
         }
     };
 </script>
@@ -36,7 +37,7 @@
             position: relative;
         }
 
-        .tab-bar {
+        .tab-bar-wrapper {
             flex: 0 0 auto;
             position: relative;
             width: 100%;
