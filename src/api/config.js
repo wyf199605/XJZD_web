@@ -1,6 +1,6 @@
 // const serverURL = 'http://129.204.246.38'; // 生产地址
-const serverURL = 'http://129.204.246.38:7001'; // 测试地址
-// const serverURL = 'http://localhost:7001'; // 本地地址
+// const serverURL = 'http://129.204.246.38:7001'; // 测试地址
+const serverURL = 'http://localhost:7001'; // 本地地址
 
 const baseURL = process.env.NODE_ENV === 'development' ? serverURL : "";
 
@@ -15,6 +15,8 @@ const config = {
         tackOrder: '/order/developer/tack', // 接单
         cancelTackOrder: '/order/developer/cancel', // 取消接单
         finishOrder: 'order/developer/finish', // 完成订单工作
+        updateOrder: '/order/publisher/update', // 修改订单内容
+        cancelOrder: '/order/publisher/cancel', // 取消发布订单
     }
 };
 

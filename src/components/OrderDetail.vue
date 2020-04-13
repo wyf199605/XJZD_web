@@ -1,11 +1,17 @@
 <template>
     <!--  订单详情组件  -->
-    <div class="order-detail-wrapper"></div>
+    <van-panel class="order-detail-wrapper">
+
+    </van-panel>
 </template>
 
 <script>
+    import { Panel } from "vant";
     export default {
         name: "OrderDetail",
+        components: {
+            [Panel.name]: Panel,
+        },
         props: {
             data: {
                 type: Object,

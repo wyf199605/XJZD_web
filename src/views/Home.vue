@@ -1,46 +1,36 @@
 <template>
+    <!-- 订单列表页面 -->
     <div class="home-page">
-        <div class="container">
-            <keep-alive>
-                <router-view/>
-            </keep-alive>
-        </div>
-        <TabBar/>
+        <OrderList :fetch="fetchHandler"/>
     </div>
 </template>
 
 <script>
-    import TabBar from "@/components/TabBar";
+    import OrderList from "@/components/OrderList";
+    import Ajax from "@/api";
 
     export default {
-        name: 'Home',
+        name: "Home",
         components: {
-            TabBar
+            OrderList
         },
-        mounted() {
-            // Ajax.getOrderList(0, 10).then(() => {
-            //     // console.log(res.data);
-            // });
+        methods: {
+            fetchHandler({current}) {
+                return Ajax.getOrderList(current, 10, false).then((res) => {
+                    let data = res.data.data;
+                    return {
+                        data: data.data,
+                        total: data.total
+                    };
+                });
+            }
         }
-    };
+    }
 </script>
 
 <style lang="scss" scoped>
     .home-page {
-        @include coverScreen;
-        @include flex(flex-start);
-        flex-direction: column;
-
-        .container {
-            flex: 1 1 auto;
-            width: 100%;
-            position: relative;
-        }
-
-        .tab-bar-wrapper {
-            flex: 0 0 auto;
-            position: relative;
-            width: 100%;
-        }
+        //@include coverScreen;
+        padding-bottom: 50px;
     }
 </style>

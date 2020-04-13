@@ -3,6 +3,8 @@
             v-model="refreshing"
             :disabled="disabledRefresh"
             @refresh="refreshHandler"
+            :success-text="refreshTip"
+            success-duration="1000"
     >
         <van-list
                 v-model="loading"
@@ -12,19 +14,27 @@
                 error-text="请求失败，点击重新加载"
                 @load="loadHandler"
         >
-            <slot/>
+            <van-skeleton
+                    title
+                    animate
+                    :row="3"
+                    :loading="!loaded"
+            >
+                <slot/>
+            </van-skeleton>
         </van-list>
     </van-pull-refresh>
 </template>
 
 <script>
-    import { List, PullRefresh, Toast } from 'vant';
+    import { List, PullRefresh, Skeleton } from 'vant';
 
     export default {
         name: "List",
         components: {
             [List.name]: List,
             [PullRefresh.name]: PullRefresh,
+            [Skeleton.name]: Skeleton,
         },
         props: {
             data: {
@@ -54,8 +64,10 @@
             return {
                 refreshing: false,
                 loading: false,
+                loaded: false,
                 finished: false,
                 error: false,
+                refreshTip: '刷新成功',
             }
         },
         computed: {
@@ -66,11 +78,11 @@
         methods: {
             refreshHandler() {
                 this.onRefresh().then(() => {
-                    Toast('刷新成功');
+                    this.refreshTip = "刷新成功";
                     this.finished = false;
                     this.error = false;
                 }).catch(() => {
-                    Toast('刷新失败，请重试！');
+                    this.refreshTip = "刷新失败，请重试！";
                 }).finally(() => {
                     this.refreshing = false;
                 });
@@ -79,6 +91,7 @@
                 this.onLoad().then((finish) => {
                     this.loading = false;
                     this.finished = finish;
+                    this.loaded = true;
                 }).catch(() => {
                     this.error = true;
                 });

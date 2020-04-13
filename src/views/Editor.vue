@@ -1,7 +1,7 @@
 <template>
     <!-- 添加订单 -->
     <div class="editor-page">
-        <EditorForm @submit="submitHandler"/>
+        <EditorForm ref="editorForm" @submit="submitHandler"/>
     </div>
 </template>
 
@@ -22,12 +22,18 @@
                     title: data.title,
                     details: data.details,
                     codeType: data.codeType,
-                    deadline: data.deadline,
+                    deadline: data.date + ' ' + data.time,
                     budget: data.budget,
                     pictures: '',
                     attachment: ''
                 }).then(() => {
                     Toast.success("发布订单成功");
+                    this.$refs.editorForm.setData({
+                        title: '',
+                        details: '',
+                        budget: null,
+                        codeType: "Java"
+                    })
                 });
             }
         }
@@ -36,6 +42,6 @@
 
 <style scoped lang="scss">
     .editor-page {
-        @include coverScreen;
+        padding-bottom: 50px;
     }
 </style>

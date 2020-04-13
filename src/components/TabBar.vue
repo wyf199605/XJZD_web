@@ -1,6 +1,13 @@
 <template>
-    <Tabbar class="tab-bar-wrapper" v-show="visible" :value="activePath">
-        <TabbarItem v-for="route of routes" :key="route.path" :icon="route.icon" :name="route.path" :to="route.path">
+    <Tabbar class="tab-bar-wrapper" :class="{visible: visible}" v-show="visible" :value="activePath">
+        <TabbarItem
+                v-for="route of routes"
+                :key="route.path"
+                :icon="route.icon"
+                :name="route.path"
+                :to="route.path"
+                replace
+        >
             {{route.title}}
         </TabbarItem>
     </Tabbar>

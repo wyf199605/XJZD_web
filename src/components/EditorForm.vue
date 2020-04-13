@@ -7,7 +7,10 @@
                     label="订单标题"
                     placeholder="请填写订单标题"
                     required
-                    :rules="[{required: true, message: '请填写订单标题'}]"
+                    :rules="[
+                        {required: true, message: '请填写订单标题'},
+                        {validator: value => value.length <= 20, message: '不得超过20字'}
+                    ]"
             />
             <van-field
                     name="budget"
@@ -22,14 +25,12 @@
                     label="详细内容"
                     type="textarea"
                     rows="3"
-                    maxlength="200"
-                    placeholder="请填写内容（不少于5字，不多于200字）"
+                    placeholder="请填写内容（不少于5字）"
                     required
                     autosize
-                    show-word-limit
                     :rules="[
                         {required: true, message: '请填写内容'},
-                        {validator: value => value.length >= 5 && value.length <= 200, message: '至少5字，至多200字'}
+                        {validator: value => value.length >= 5, message: '至少5字'}
                     ]"
             />
             <van-field
@@ -64,14 +65,16 @@
             />
             <van-field name="picture" label="附件图片">
                 <template #input>
-                    <van-uploader v-model="pictures" />
+                    <van-uploader v-model="pictures"/>
                 </template>
             </van-field>
 
-            <div style="margin: 16px;">
-                <van-button round block type="info" native-type="submit">
-                    发布
-                </van-button>
+            <div class="btn-group">
+                <slot name="button">
+                    <van-button round block type="info" native-type="submit">
+                        发布
+                    </van-button>
+                </slot>
             </div>
         </van-form>
         <!-- 代码类别下拉框 -->
@@ -97,15 +100,13 @@
 </template>
 
 <script>
-    import Vue from 'vue';
     import moment from 'moment';
     import { Field, Form, Button, Picker, Popup, DatetimePicker, Uploader, Calendar } from 'vant';
-
-    Vue.use(Form);
 
     export default {
         name: "EditorForm",
         components: {
+            [Form.name]: Form,
             [Field.name]: Field,
             [Button.name]: Button,
             [Picker.name]: Picker,
@@ -120,14 +121,14 @@
                 details: "",
                 budget: null,
                 codeType: 'Java',
-                codeTypePopupVisible: false,
-                codeTypeOptions: ["Java", "JavaScript", "C", "C++", "C#", "Python", "Go", "PHP", "Node", '其他'],
                 date: moment().add(7, 'days').toDate(),
                 time: '23:59',
+                pictures: [],
+                codeTypePopupVisible: false,
+                codeTypeOptions: ["Java", "JavaScript", "C", "C++", "C#", "Python", "Go", "PHP", "Node", '其他'],
                 timePopupVisible: false,
                 calendarVisible: false,
                 minDate: moment().toDate(),
-                pictures: []
             }
         },
         computed: {
@@ -150,11 +151,32 @@
             },
             submitHandler(e) {
                 this.$emit('submit', e);
+            },
+            /**
+             * @param {{
+             *     title: string,
+             *     details: string,
+             *     codeType: string,
+             *     budget: number,
+             *     date: Date,
+             *     time: string,
+             *     pictures: Array<string>
+             * }} data
+             */
+            setData(data) {
+                for (let key in data) {
+                    this[key] = data[key];
+                }
             }
-        }
+        },
     }
 </script>
 
 <style lang="scss">
-
+    .editor-form-wrapper {
+        .btn-group {
+            margin: 16px;
+            @include flex(space-between);
+        }
+    }
 </style>
