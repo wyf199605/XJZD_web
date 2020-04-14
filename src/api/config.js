@@ -17,7 +17,7 @@ const config = {
         finishOrder: 'order/developer/finish', // 完成订单工作
         updateOrder: '/order/publisher/update', // 修改订单内容
         cancelOrder: '/order/publisher/cancel', // 取消发布订单
-    }
+    },
 };
 
 export default config;

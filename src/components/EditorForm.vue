@@ -65,7 +65,7 @@
             />
             <van-field name="picture" label="附件图片">
                 <template #input>
-                    <van-uploader v-model="pictures"/>
+                    <WxUploader/>
                 </template>
             </van-field>
 
@@ -101,7 +101,8 @@
 
 <script>
     import moment from 'moment';
-    import { Field, Form, Button, Picker, Popup, DatetimePicker, Uploader, Calendar } from 'vant';
+    import { Field, Form, Button, Picker, Popup, DatetimePicker, Calendar } from 'vant';
+    import WxUploader from "@/components/WxUploader";
 
     export default {
         name: "EditorForm",
@@ -112,8 +113,8 @@
             [Picker.name]: Picker,
             [Popup.name]: Popup,
             [DatetimePicker.name]: DatetimePicker,
-            [Uploader.name]: Uploader,
             [Calendar.name]: Calendar,
+            WxUploader
         },
         data(){
             return {
